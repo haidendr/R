@@ -1,0 +1,53 @@
+---
+title: 'Module 1: Critical Thinking Assignment'
+author: ' by: D.Haiden'
+---
+
+# Categorical Attributes and Partitioning Data
+```{r, echo=FALSE}
+setwd("C:/Users/diane/OneDrive/Desktop/MIS510/Module_1/CT")
+```
+
+### Load and explore data
+```{r}
+corolla.df <- read.csv("ToyotaCorolla.csv", header = TRUE)     # load data
+dim(corolla.df)                         # find the dimension of data frame
+head(corolla.df)                        # show the first six rows
+View(corolla.df)                        # show all the data in a new tab
+```
+
+### Perform Summary Statistics
+```{r}
+mean(corolla.df$Price)                  # find the average price of Corolla
+summary(corolla.df)                     # find summary statistics for ea column
+mean(corolla.df[corolla.df$Mfg_Year=='2004', 'Price'])
+```
+
+### Convert the attribute Fuel Type to binary dummies
+```{r}
+xtotal <- model.matrix(~ 0 + Fuel_Type + Color, data = corolla.df)
+xtotal <- as.data.frame(xtotal)
+t(t(names(xtotal)))                     # check the names of the dummy variables
+head(xtotal)
+```
+
+### Partition data
+```{r}
+# partitioning into training (50%), validation (30%), test(20%)
+# randomly sample 50% of the row Ids for training
+train.rows <- sample(rownames(corolla.df), dim(corolla.df)[1]*0.5)
+
+# sample 30% of the row Ids into the validation set, drawing only from records
+# not already in the training set
+# use setdiff() to find records not already in the training set
+valid.rows <- sample(setdiff(rownames(corolla.df), train.rows),
+                      dim(corolla.df)[1]*0.3)
+
+# assign the remaining 20% row Ids serve as test
+test.rows <- setdiff(rownames(corolla.df), union(train.rows, valid.rows))
+
+# create the 3 data frames by collecting all columns from the appropriate rows
+train.data <- corolla.df[train.rows, ]
+valid.data <- corolla.df[valid.rows, ]
+test.data <- corolla.df[test.rows, ]
+```
