@@ -5,7 +5,7 @@ author: ' by: D.Haiden'
 
 # Categorical Attributes and Partitioning Data
 ```{r, echo=FALSE}
-setwd("C:/Users/diane/OneDrive/Desktop/MIS510/Module_1/CT")
+setwd("C:/Users/foldername...")  # set working directory
 ```
 
 ### Load and explore data
