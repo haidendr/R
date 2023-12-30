@@ -6,7 +6,7 @@ output:
     df_print: paged
 ---
 ```{r, echo=FALSE}
-setwd("C:/Users/diane/OneDrive/Desktop/MIS510/Module_2/CT")
+setwd("C:/Users/foldername...")  # set working directory
 ```
 
 ### Introduction
