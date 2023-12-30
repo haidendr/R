@@ -1,0 +1,164 @@
+---
+title: "Exploring Breakfast Cereals"
+author: 'Author: Diane Haiden'
+output:
+  html_document:
+    df_print: paged
+---
+```{r, echo=FALSE}
+setwd("C:/Users/diane/OneDrive/Desktop/MIS510/Module_2/CT")
+```
+
+### Introduction
+The goal is to explore and summarize a data set and create several visualizations.
+
+We start by loading the data set, and obtain summary statistics to aid in data reduction.
+```{r}
+cereal.df <- read.csv("MIS510Cereals.csv", header = TRUE)
+head(cereal.df,6)
+```
+We found that the ‘name’, ‘mfr’,  and ‘type’ attributes are of character class. 
+
+We omitted the attributes that are not quantitative and computed summary statistics.
+We computed the mean, standard deviation, minimum, maximum, median, length, and the sum of missing values for each quantitative attribute.
+
+### Summary Statistics
+```{r}
+data.frame(mean=sapply(cereal.df[,-c(1:3)], mean), 
+             sd=sapply(cereal.df[,-c(1:3)], sd),
+            min=sapply(cereal.df[,-c(1:3)], min), 
+            max=sapply(cereal.df[,-c(1:3)], max),
+         length=sapply(cereal.df[,-c(1:3)], length),
+       miss.val=sapply(cereal.df[,-c(1:3)],
+       function(x) sum(length(which(is.na(x))))) )
+```
+
+### Correlation Table
+Next, we created a correlation table to summarize the relationship between each quantitative variable.
+Noticed that the output produced low numbers and also included negative values
+```{r}
+round(cor(cereal.df[,-c(1:3)]), 2)
+```
+
+### Histograms
+Next, we used the hist() function to plot histograms for each quantitative variable. 
+
+___
+#### Calories Histogram
+
+```{r}
+hist(cereal.df$calories, xlab = "calories")
+
+```
+
+The calories histogram above shows us a unimodal distribution with the largest frequency of calories in the 100 - 110 calorie range. This indicates that the majority of cereals in our analysis have a calorie range between 100 and 110 calories per serving.  
+  
+  
+___
+#### Protein and Fat Histograms
+```{r}
+hist(cereal.df$protein, xlab = "protein")
+hist(cereal.df$fat, xlab = "fat")
+
+```
+
+The protein and fat histograms show a non-symmetric distribution that could be positively skewed. The protein histogram tells us that most of the cereals in our analysis have a protein content between 1.5g and 3g. The fat histogram in Figure 8 tells us that most of the cereals in our analysis have a fat content between 0g and 1g. 
+
+
+___
+#### Sodium Histogram
+```{r}
+hist(cereal.df$sodium, xlab = "sodium")
+
+```
+
+The sodium histogram above shows a unimodal distribution. The largest frequency of sodium falls between 150mg and 200mg range. This indicates that most cereals in our analysis have a sodium content between 150mg and 200mg range. 
+
+___
+#### Fiber and Potassium Histograms
+```{r}
+hist(cereal.df$fiber, xlab = "fiber")
+hist(cereal.df$potass, xlab = "potassium")  
+
+```
+
+The fiber histogram and the potassium histogram show a positively skewed distribution. This tells us that the majority of cereals in our analysis have a fiber content of less than 2g of dietary fiber and a potassium content of less than 50mg. 
+
+___
+#### Carbohydrates Histogram
+```{r}
+hist(cereal.df$carbo, xlab = "carbo")  
+
+```
+
+The carbohydrates histogram above shows a unimodal distribution with the largest frequency of carbohydrates in the 10g - 16g range. This indicates that most of the cereals in our analysis have a carbohydrate range of 10g to 16g.
+
+___
+#### Sugars Histogram
+```{r}
+hist(cereal.df$sugars, xlab = "sugars")
+
+```
+
+The sugars histogram could be a non-symmetric bimodal distribution or positively skewed with the largest frequency of sugars around 3g. The histogram above tells us that the majority of cereals on the shelves have sugar contents above 8g per serving. 
+
+___
+#### Vitamins Histogram
+```{r}
+hist(cereal.df$vitamins, xlab = "vitamins")  
+
+```
+
+The vitamins histogram above shows a non-symmetric distribution with the largest frequency of vitamins at 25. This tells us that most of the cereals on the shelves have vitamins with a 25 value, and the remaining smaller portion of the cereals have vitamins of either 0 or 100. It is unclear what these vitamins are based on the data provided.
+
+___
+#### Shelf Histogram
+```{r}
+hist(cereal.df$shelf, xlab = "shelf")  
+
+```
+
+The shelf histogram shows us that the majority of cereals on the shelves are placed on the top shelf. The remaining cereals from our analysis came from the bottom and middle shelf and appear to be distributed evenly between the two. 
+
+___
+#### Weight Histogram
+```{r}
+hist(cereal.df$weight, xlab = "weight")
+
+```
+
+The weight histogram above shows us that the majority weight of cereals in a cereal box is 1 lb. 
+
+___
+#### Cups Histogram
+```{r}
+hist(cereal.df$cups, xlab = "cups")
+
+```
+
+The cups histogram shows us that the majority serving size is 1 cup.
+
+___
+#### Ratings Histogram
+```{r}
+hist(cereal.df$rating, xlab = "rating")  
+
+```
+
+The histogram above shows a right-skewed distribution with the largest frequency of consumer ratings in the 30%-40% range. This indicates that consumers are not overly happy with the cereals they pick. When we look at the boxplot below we see that the median consumer rating of cereal boxes is around 40. The boxplot also tells us that cereal boxes placed at the bottom and top shelf have a higher average consumer rating than those placed in the middle shelf. This data could be useful to retailers as it indicates which products are popular with consumers. This data can also help determine the placement of products on shelves. Further analysis would need to be done to compare the prices of the cereal boxes to determine whether the cereal boxes on the bottom shelf are popular due to their market price, or because of their accessibility. 
+
+
+___
+### Boxplots
+Next, we used the boxplot() function to create side-by-side boxplots to compare the distribution of consumer ratings for the shelf height of the cereal box placed in the grocery store. 
+```{r}
+# boxplot of rating for different values of shelf
+boxplot(cereal.df$rating ~ cereal.df$shelf, xlab = "Shelf Height", 
+        ylab = "Consumer Rating")
+
+```
+
+We can learn a data's symmetry, skewness, and if it has outliers by analyzing boxplots. Our boxplot tell us that the data on the bottom shelf and the middle shelf appear to be symmetric because the median appears to be in the center of the IQR box. The boxplot for the top shelf appear to be skewed because the median is not in the middle of the box. The lower whisker length of the top shelf boxplot appear to be longer than the bottom and middle shelf. The top, middle, and bottom shelves all have similar IQRs, so they have similar variations. The dots past the upper whisker limit indicate that each shelf has an outlier.
+
+### Conclusion
+From our research, we discovered that the majority of cereals on grocery shelves contained 110g of calories per serving, 3g or less of protein, 0g - 1g of fat, either contains no sodium or 200g of sodium, 0g - 2g of dietary fiber, 13g or 15g of carbohydrates, 3g of sugar, 35mg of potassium, and 25 vitamins and minerals as opposed to 100 or no vitamins and minerals. The majority of cereals analyzed came from the top shelf, while the bottom and middle shelf provided equal amounts of data. The majority of cereal analyzed weigh 1 lb. per box and the popular serving size is 1 cup. When we compare the shelf histogram to the boxplot we discover that although there are more cereals placed on the 3rd or top shelf, the average consumer rating is higher for cereals on the bottom shelf. If the cereals on the bottom shelf are cheaper than those on the top shelf, it could indicate that consumers feel that they are getting their money's worth with the bottom-shelf cereals and are more satisfied with their purchase. Another reason consumers may favor cereals on the bottom shelf could be due to their accessibility. Cereals on the bottom shelf are easier for children and mobility-impaired customers to obtain. Our research found that cereals placed in the middle shelf were the least favorable. This data can be useful to support slotting allowance research for cereal manufacturers and to help retailers in the placement of products.
