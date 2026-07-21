@@ -1,0 +1,67 @@
+============================================
+Oregon Housing ACS Validation Report
+ACS Years: 2019-2023
+============================================
+
+Checking file: data/raw/acs_2019_raw.csv 
+indexing acs_2019_raw.csv [==================================================================================] 2.15GB/s, eta:  0s                                                                                                                                 Loaded 2019 - Rows: 36 
+
+Checking file: data/raw/acs_2020_raw.csv 
+indexing acs_2020_raw.csv [==================================================================================] 2.15GB/s, eta:  0s                                                                                                                                 Loaded 2020 - Rows: 36 
+
+Checking file: data/raw/acs_2021_raw.csv 
+indexing acs_2021_raw.csv [==================================================================================] 2.15GB/s, eta:  0s                                                                                                                                 Loaded 2021 - Rows: 36 
+
+Checking file: data/raw/acs_2022_raw.csv 
+indexing acs_2022_raw.csv [==================================================================================] 2.15GB/s, eta:  0s                                                                                                                                 Loaded 2022 - Rows: 36 
+
+Checking file: data/raw/acs_2023_raw.csv 
+indexing acs_2023_raw.csv [==================================================================================] 2.15GB/s, eta:  0s                                                                                                                                 Loaded 2023 - Rows: 36 
+
+
+Combined dataset rows: 180 
+
+County count by year:
+# A tibble: 5 × 2
+   year counties
+  <dbl>    <int>
+1  2019       36
+2  2020       36
+3  2021       36
+4  2022       36
+5  2023       36
+
+Duplicate GEOID-year records:
+# A tibble: 0 × 3
+# ℹ 3 variables: GEOID <dbl>, year <dbl>, n <int>
+
+Missing values by variable:
+# A tibble: 1 × 24
+  GEOID  NAME median_incomeE median_incomeM median_rentE median_rentM median_home_valueE median_home_valueM poverty_populationE
+  <int> <int>          <int>          <int>        <int>        <int>              <int>              <int>               <int>
+1     0     0              0              0            0            0                  0                  0                   0
+# ℹ 15 more variables: poverty_populationM <int>, total_populationE <int>, total_populationM <int>, renter_totalE <int>,
+#   renter_totalM <int>, rent30_34E <int>, rent30_34M <int>, rent35_39E <int>, rent35_39M <int>, rent40_49E <int>,
+#   rent40_49M <int>, rent50_plusE <int>, rent50_plusM <int>, geometry <int>, year <int>
+
+Invalid GEOID format:
+# A tibble: 0 × 24
+# ℹ 24 variables: GEOID <dbl>, NAME <chr>, median_incomeE <dbl>, median_incomeM <dbl>, median_rentE <dbl>, median_rentM <dbl>,
+#   median_home_valueE <dbl>, median_home_valueM <dbl>, poverty_populationE <dbl>, poverty_populationM <dbl>,
+#   total_populationE <dbl>, total_populationM <dbl>, renter_totalE <dbl>, renter_totalM <dbl>, rent30_34E <dbl>,
+#   rent30_34M <dbl>, rent35_39E <dbl>, rent35_39M <dbl>, rent40_49E <dbl>, rent40_49M <dbl>, rent50_plusE <dbl>,
+#   rent50_plusM <dbl>, geometry <chr>, year <dbl>
+
+Negative numeric values:
+# A tibble: 1 × 11
+   NAME median_incomeE median_rentE median_home_valueE poverty_populationE total_populationE renter_totalE rent30_34E rent35_39E
+  <int>          <int>        <int>              <int>               <int>             <int>         <int>      <int>      <int>
+1     0              0            0                  0                   0                 0             0          0          0
+# ℹ 2 more variables: rent40_49E <int>, rent50_plusE <int>
+
+Summary statistics:
+
+
+============================================
+Validation Complete
+============================================
